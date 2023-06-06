@@ -1,0 +1,80 @@
+{{define "install/verify.html"}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>身份验证 | CqepcAuto</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../../static/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/node_modules/toastr/build/toastr.min.css">
+    <link rel="stylesheet" href="../../static/css/public.css">
+    <link rel="stylesheet" href="../../static/css/install/verify.css">
+
+    <!-- js -->
+    <script src="../../static/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../static/lib/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../static/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/node_modules/toastr/build/toastr.min.js"></script>
+    <script src="../../static/lib/node_modules/crypto-js/crypto-js.js"></script>
+    <script src="../../static/js/utils/encipher.js"></script>
+    <script src="../../static/js/install/verify.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card border-0 shadow rounded-20">
+            <div class="card-body">
+                <!-- 标题 -->
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">CqepcAuto 自动安装引导程序</p>
+                    <footer class="blockquote-footer">版本号 <cite title="Source Title">Version {{.version}}</cite></footer>
+                </blockquote>
+
+                <p class="font-weight-light">
+                    现在需要验证是否为您本人使用,请在下方表单中填写您的信息
+                </p>
+
+                <!-- 表单 -->
+                <form method="get">
+                    <p class="h4">个人身份信息验证</p>
+                    <div class="form-group">
+                        <label for="StudentName">真实姓名</label>
+                        <input type="text" name="StudentName" class="form-control" id="StudentName"
+                            placeholder="请输入真实姓名" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="StudentID">学号</label>
+                        <input type="text" name="StudentID" class="form-control" id="StudentID" placeholder="请输入学号"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 消息弹窗 -->
+    <div class="modal fade" id="loadingMsg" tabindex="-1" role="dialog" aria-labelledby="please loading" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="spinner-border m-2" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                <p class="text-center">系统可能在初始化中,请耐心等待...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>
+{{end}}

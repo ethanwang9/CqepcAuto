@@ -1,0 +1,220 @@
+{{define "admin/index.html"}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="today" data-value="{{.count.today}}">
+    <title>首页 | CqepcAuto</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../../static/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/node_modules/toastr/build/toastr.min.css">
+    <link rel="stylesheet" href="../../static/css/public.css">
+    <link rel="stylesheet" href="../../static/css/admin/index.css">
+
+    <!-- js -->
+    <script src="../../static/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../static/lib/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../static/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/node_modules/toastr/build/toastr.min.js"></script>
+    <script src="../../static/lib/node_modules/crypto-js/crypto-js.js"></script>
+    <script src="../../static/js/utils/encipher.js"></script>
+    <script src="../../static/js/admin/index.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
+        <div class="container">
+            <a class="navbar-brand" href="#">CqepcAuto</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/index?t={{.now}}">首页 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/system?t={{.now}}">系统配置</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-expanded="false">
+                        {{.userinfo.SName}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-9 col-md-8">
+                <!-- 欢迎页面 -->
+                <div class="row">
+                    <div class="card shadow-sm border-0 col-12">
+                        <div class="card-body">
+                            <p class="card-text h5">欢迎回来, {{.userinfo.SClass}}的{{.userinfo.SName}}同学</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end -->
+
+                <!-- 今日评课情况 -->
+                <div class="row">
+                    <div class="card shadow-sm border-0 col-12">
+                        <div class="card-body">
+                            <h5 class="card-title">今日评课情况</h5>
+                            <div class="alert alert-danger" role="alert">
+                                补评只能补评当天的课程，一般在开课后一个小时之内成功率较高，其他时间成功率不超过45%且该功能非常危险，有较高概率会被请去喝茶！
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">课程名</th>
+                                            <th scope="col">上课老师</th>
+                                            <th scope="col">上课教室</th>
+                                            <th scope="col">是否评课</th>
+                                            <th scope="col">开始时间</th>
+                                            <th scope="col">结束时间</th>
+                                            <th scope="col">补评</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{ range .today}}
+                                        <tr>
+                                            <td>{{.className}}</td>
+                                            <td>{{.classRoom}}</td>
+                                            <td>{{.teacherName}}</td>
+                                            <td>{{.isPk}}</td>
+                                            <td>{{.startTime}}</td>
+                                            <td>{{.endTime}}</td>
+                                            <td><button class="btn btn-danger pkDanger" type="button" data-id="{{.classCode}}">补评</button></td>
+                                        </tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                                <p class="text-center" id="todayNull">今日无课程</p>
+                            </div>
+                            <p class="card-text text-right"><small class="text-muted">更新时间: {{.time.today}}</small></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end -->
+
+                <!-- 评课数据 -->
+                <div class="row">
+                    <div class="card shadow-sm border-0 col-12">
+                        <div class="card-body">
+                            <h5 class="card-title">评课数据</h5>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">课程名</th>
+                                            <th scope="col">课程代码</th>
+                                            <th scope="col">已上课（次）</th>
+                                            <th scope="col">已评价（次）</th>
+                                            <th scope="col">评课率</th>
+                                            <th scope="col">开始时间</th>
+                                            <th scope="col">结束时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{ range .tj }}
+                                        <tr>
+                                            <td>{{.courseName}}</td>
+                                            <td>{{.courseCode}}</td>
+                                            <td>{{.totalClassroom}}</td>
+                                            <td>{{.totalEvaluation}}</td>
+                                            <td>{{.prob}}</td>
+                                            <td>{{.startTime}}</td>
+                                            <td>{{.endTime}}</td>
+                                        </tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="card-text text-right"><small class="text-muted">更新时间: {{.time.tj}}</small></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end -->
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <!-- 个人信息 -->
+                <div class="row">
+                    <div class="card card shadow-sm border-0 col-12">
+                        <div class="card-body">
+                            <h5 class="card-title">个人信息</h5>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>姓名</td>
+                                        <td>{{.userinfo.SName}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>学号</td>
+                                        <td>{{.userinfo.SId}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>班级</td>
+                                        <td>{{.userinfo.SClass}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>班级号</td>
+                                        <td>{{.userinfo.SClassCode}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- end -->
+
+                <!-- 系统信息 -->
+                <div class="row">
+                    <div class="card card shadow-sm border-0 col-12">
+                        <div class="card-body">
+                            <h5 class="card-title">系统信息</h5>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>当前版本号</td>
+                                        <td>{{.app.now}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>最新版本号</td>
+                                        <td>{{.app.new}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>作者</td>
+                                        <td>{{.app.author}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>查看文档</td>
+                                        <td><a href="{{.app.release_url}}">文档地址</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-success" type="button" data-url="{{.app.release_url}}" id="update">获取更新</button>
+                    </div>
+                </div>
+                <!-- end -->
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+{{end}}

@@ -1,0 +1,11 @@
+.card {
+    margin-bottom: 10px;
+}
+
+[class*="col-"] {
+    padding: 20px;
+}
+
+.card-body {
+    padding: unset;
+}

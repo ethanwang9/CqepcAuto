@@ -1,0 +1,6 @@
+.idea/
+log/
+release/
+db/db.db
+doc/
+main_test.go

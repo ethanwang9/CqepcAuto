@@ -1,0 +1,108 @@
+{{define "install/index.html"}}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安装系统 | CqepcAuto</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../../static/lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/lib/node_modules/toastr/build/toastr.min.css">
+    <link rel="stylesheet" href="../../static/css/public.css">
+    <link rel="stylesheet" href="../../static/css/install/index.css">
+
+    <!-- js -->
+    <script src="../../static/lib/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../static/lib/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../static/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/node_modules/toastr/build/toastr.min.js"></script>
+    <script src="../../static/lib/node_modules/crypto-js/crypto-js.js"></script>
+    <script src="../../static/js/utils/encipher.js"></script>
+    <script src="../../static/js/install/index.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card border-0 shadow rounded-20 card">
+            <div class="card-body">
+                <!-- 标题 -->
+                <blockquote class="blockquote text-center">
+                    <p class="mb-0">CqepcAuto 自动安装引导程序</p>
+                    <footer class="blockquote-footer">版本号 <cite title="Source Title">Version {{.version}}</cite></footer>
+                </blockquote>
+
+                <p class="font-weight-light">
+                    请在下方表单中填写您的信息，填写完成后系统将会自动生成配置，等待几秒后即可进入后台管理界面
+                </p>
+
+                <!-- 表单 -->
+                <form>
+                    <p class="h4">评课信息配置</p>
+                    <p>请输入评课系统账号密码信息</p>
+                    <div class="form-group">
+                        <label for="StudentUsername">学号</label>
+                        <input type="text" name="StudentID" class="form-control" id="StudentUsername"
+                            placeholder="请输入学号" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="StudentPassword">密码</label>
+                        <input type="password" name="StudentPassword" class="form-control" id="StudentPassword"
+                            placeholder="请输入密码" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="StudentOpenid">评课小程序OPENID [选填] &emsp14;&emsp14; <a href="https://www.axelwong.cn/96/" target="_blank">获取配置文档</a></label>
+                        <input type="text" name="StudentOpenid" class="form-control" id="StudentOpenid"
+                            placeholder="请输入评课小程序OPENID">
+                    </div>
+
+                    <p class="h4">通知配置</p>
+                    <p>本系统使用钉钉消息通知，请确保您的设备（电脑或手机）中有该软件（钉钉） &emsp14;&emsp14; <a href="https://www.axelwong.cn/96/" target="_blank">获取配置文档</a></p>
+                    <div class="form-group">
+                        <label for="DingTalkWebhook">Webhook地址</label>
+                        <input type="text" name="DingTalkWebhook" class="form-control" id="DingTalkWebhook"
+                            placeholder="请输入Webhook地址" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DingTalkSecret">密钥</label>
+                        <input type="text" name="DingTalkSecret" class="form-control" id="DingTalkSecret"
+                            placeholder="请输入密钥" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="DingTalkPhone">手机号&emsp14;&emsp14;&emsp14;&emsp14;<span class="font-weight-light">请使用注册钉钉并创建群机器人的手机号，不然无法接收消息</span></label>
+                        <input type="text" name="DingTalkPhone" class="form-control" id="DingTalkPhone"
+                            placeholder="请输入手机号" required>
+                    </div>
+
+                    <p class="h4">系统配置</p>
+                    <div class="form-group">
+                        <label for="SysLoginType">登录模式&emsp14;&emsp14; <a href="https://www.axelwong.cn/96/" target="_blank">获取配置文档</a></label>
+                        <select name="SysLoginType" id="SysLoginType" class="form-control">
+                            <option value="account">账号密码登录</option>
+                            <option value="openid">评课小程序OPENID登录 - 推荐！！！</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="SysCode">验证码</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="SysCode" name="SysCode"
+                                    placeholder="请输入验证码" required>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary" id="getCode">获取验证码</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+{{end}}
