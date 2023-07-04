@@ -1,0 +1,6 @@
+# web
+/web/.idea
+/web/.vscode/*
+/web/node_modules
+
+# server
