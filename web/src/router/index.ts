@@ -4,11 +4,38 @@ import type {RouteRecordRaw} from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
     {
+        path: "/",
+        name: "Index",
+        meta: {
+            title: "首页",
+        },
+        redirect: {name: "Login"},
+        children: [
+            {
+                path: "login",
+                name: "Login",
+                meta: {
+                    title: "登录系统",
+                },
+                component: () => import("@/views/login.vue")
+            },
+            {
+                path: "404",
+                name: "404",
+                meta: {
+                    title: "页面不存在",
+                },
+                component: () => import("@/views/404.vue"),
+            },
+        ]
+    },
+    {
         path: "/install",
         name: "Install",
         meta: {
             title: "安装系统",
         },
+        component: () => import("@/views/install/index.vue"),
         redirect: {name: "InstallStep1"},
         children: [
             {
@@ -23,17 +50,9 @@ const routes: RouteRecordRaw[] = [
                 path: "step2",
                 name: "InstallStep2",
                 meta: {
-                    title: "基础配置 | 安装系统",
+                    title: "系统配置 | 安装系统",
                 },
                 component: () => import("@/views/install/step2.vue")
-            },
-            {
-                path: "step3",
-                name: "InstallStep3",
-                meta: {
-                    title: "大功告成 | 安装系统",
-                },
-                component: () => import("@/views/install/step3.vue")
             },
         ],
     },

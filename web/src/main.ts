@@ -5,8 +5,10 @@ import App from './App.vue'
 import router from './router'
 import PluginTheme from '@/plugins/theme'
 
+// css
 import 'normalize.css'
-import 'element-plus/theme-chalk/dark/css-vars.css'
+import 'animate.css'
+import '@/styles/index.scss'
 
 const app = createApp(App)
 const pinia = createPinia()

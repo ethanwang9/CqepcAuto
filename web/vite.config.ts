@@ -6,14 +6,22 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 export default (configEnv: ConfigEnv): UserConfigExport => {
     const env = loadEnv(configEnv.mode, process.cwd())
     return {
         resolve: {
             alias: {
-                "@": resolve(__dirname, "./src")
+                "@": resolve(__dirname, "./src"),
             }
+        },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    additionalData: `@use "@/styles/element/index.scss" as *;`,
+                },
+            },
         },
         plugins: [
             vue(),
@@ -36,6 +44,9 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
             }),
             Icons({
                 autoInstall: true,
+            }),
+            ElementPlus({
+                useSource: true,
             }),
         ],
         server: {

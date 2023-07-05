@@ -1,5 +1,5 @@
 import {useDark, useToggle} from "@vueuse/core";
-import {reactive, computed, App, watch, onMounted} from "vue";
+import {reactive, computed, type App, watch} from "vue";
 import usePiniaApp from "@/pinia/modules/app";
 
 export default {
@@ -17,7 +17,9 @@ export default {
             }),
             // 选择主题模式
             // auto - 自动切换 | light - 亮色模式 | dark - 暗色模式
-            select: computed(() => {return piniaApp.theme}),
+            select: computed(() => {
+                return piniaApp.theme
+            }),
             // 切换主题
             changeTheme: useToggle(useDark()),
         });
