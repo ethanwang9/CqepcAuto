@@ -56,6 +56,127 @@ const routes: RouteRecordRaw[] = [
             },
         ],
     },
+    {
+        path: "/admin",
+        name: "Admin",
+        meta: {
+            title: "CqepcAuto自动化任务管理系统",
+        },
+        component: () => import("@/views/admin/index.vue"),
+        redirect: {name: "AdminPanelIndex"},
+        children: [
+            {
+                path: "panel/index",
+                name: "AdminPanelIndex",
+                meta: {
+                    title: "仪表盘",
+                    group: "panel",
+                    key: "index",
+                },
+                component: () => import("@/views/admin/panel/index.vue")
+            },
+            {
+                path: "data/history",
+                name: "AdminDataHistory",
+                meta: {
+                    title: "评课进度",
+                    group: "data",
+                    key: "history",
+                },
+                component: () => import("@/views/admin/data/history.vue")
+            },
+            {
+                path: "data/lesson",
+                name: "AdminDataLesson",
+                meta: {
+                    title: "今日课程",
+                    group: "data",
+                    key: "lesson",
+                },
+                component: () => import("@/views/admin/data/lesson.vue")
+            },
+            {
+                path: "work/config",
+                name: "AdminWorkConfig",
+                meta: {
+                    title: "课程相关配置",
+                    group: "work",
+                    key: "config",
+                },
+                component: () => import("@/views/admin/work/config.vue")
+            },
+            {
+                path: "work/log",
+                name: "AdminWorkLog",
+                meta: {
+                    title: "自动评课日志",
+                    group: "work",
+                    key: "log",
+                },
+                component: () => import("@/views/admin/work/log.vue")
+            },
+            {
+                path: "message/log",
+                name: "AdminMessageLog",
+                meta: {
+                    title: "消息推送日志",
+                    group: "message",
+                    key: "log",
+                },
+                component: () => import("@/views/admin/message/log.vue")
+            },
+            {
+                path: "message/config",
+                name: "AdminMessageConfig",
+                meta: {
+                    title: "消息推送配置",
+                    group: "message",
+                    key: "config",
+                },
+                component: () => import("@/views/admin/message/config.vue")
+            },
+            {
+                path: "system/self",
+                name: "AdminSystemSelf",
+                meta: {
+                    title: "个人中心",
+                    group: "system",
+                    key: "self",
+                },
+                component: () => import("@/views/admin/system/self.vue")
+            },
+            {
+                path: "system/user",
+                name: "AdminSystemUser",
+                meta: {
+                    title: "用户管理",
+                    group: "system",
+                    key: "user",
+                },
+                component: () => import("@/views/admin/system/user.vue")
+            },
+            {
+                path: "system/log",
+                name: "AdminSystemLog",
+                meta: {
+                    title: "系统日志",
+                    group: "system",
+                    key: "log",
+                },
+                component: () => import("@/views/admin/system/log.vue")
+            },
+            {
+                path: "system/about",
+                name: "AdminSystemAbout",
+                meta: {
+                    title: "关于系统",
+                    group: "system",
+                    key: "about",
+                },
+                component: () => import("@/views/admin/system/about.vue")
+            },
+        ],
+    },
 ]
 
 const router = createRouter({
