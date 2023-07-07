@@ -1,6 +1,10 @@
 <script lang="ts" setup>
-import {onMounted, onUnmounted, ref} from "vue";
+import {onMounted, onUnmounted, reactive, ref} from "vue";
 import {useRouter} from "vue-router";
+import usePiniaApp from "@/pinia/modules/app";
+
+// pinia
+const piniaApp = usePiniaApp()
 
 // 路由
 const router = useRouter()
@@ -29,7 +33,7 @@ const refresh = () => window.location.reload()
 // 打开侧边设置窗口
 const isOpenSideSetting = ref(false)
 const openSideSetting = () => {
-  alert("打开侧边设置窗口")
+  isOpenSideSetting.value = true
 }
 
 // 打开侧边导航窗口
@@ -39,14 +43,39 @@ const openSideMenu = () => {
 }
 
 // 打开侧边栏选中item后自动关闭
-const OpenSideMenuSelectClose = () => {
+const openSideMenuSelectClose = () => {
   setTimeout(() => isOpenSideMenu.value = false, 300)
 }
 
 // 监控屏幕大小
 const windowWidth = ref(window.innerWidth)
 const listenWindowSize = () => {
+  // 屏幕大小
   windowWidth.value = window.innerWidth
+  // 侧边栏弹窗大小
+  if (windowWidth.value < 768) {
+    openSideWidth.value = "70%"
+  } else {
+    openSideWidth.value = "30%"
+  }
+}
+
+// 侧边栏弹窗大小
+const openSideWidth = ref("70%")
+if (windowWidth.value < 768) {
+  openSideWidth.value = "70%"
+} else {
+  openSideWidth.value = "30%"
+}
+
+// 主题设置数据
+const sideSetting = reactive({
+  mode: piniaApp.theme,
+})
+
+// 主题设置方法
+const sideSettingFun = (v: string) => {
+  piniaApp.theme = sideSetting.mode
 }
 
 // 生命周期 - 挂载
@@ -125,12 +154,11 @@ onUnmounted(() => {
             <el-row align="middle" justify="end">
               <el-space :size="20">
                 <!--用户信息-->
-                <!--TODO 完善用户信息显示，添加头像和姓名-->
                 <div>
                   <el-dropdown>
                     <span class="header-avatar">
                       <el-avatar
-                          :size="40"
+                          :size="35"
                           src="https://th.bing.com/th/id/R.5c80aa95fbd3954894716d1ec12f004c?rik=flmfJ2KO%2fcItUw&riu=http%3a%2f%2fpic.ntimg.cn%2ffile%2f20180425%2f25124298_172519481324_2.jpg&ehk=lCAbTESr6UfvpTHME8gHYXlarjxwHjs8Ny4ODFRWuT4%3d&risl=&pid=ImgRaw&r=0"
                       />
                       <span>于佳怡</span>
@@ -147,7 +175,6 @@ onUnmounted(() => {
                   </el-dropdown>
                 </div>
                 <!--主题设置-->
-                <!--TODO 完成侧边栏的打开，添加主题设置-->
                 <el-icon @click="openSideSetting">
                   <i-ep-Operation/>
                 </el-icon>
@@ -166,35 +193,43 @@ onUnmounted(() => {
   </el-container>
 
   <!--侧边栏导航窗口-->
-  <el-drawer v-model="isOpenSideMenu" custom-class="openSideMenu" direction="ltr" size="70%" title="导航菜单">
-    <template #default>
-      <el-menu
-          :default-active="routerCurrent.fullPath"
-          router
-          unique-opened
-          @select="OpenSideMenuSelectClose"
-      >
-        <el-sub-menu v-for="v in routerAdmin" :key="v.path" :index="v.path">
-          <template #title>
-            <el-icon>
-              <i-ep-Odometer v-show="v.name === 'AdminPanel'"/>
-              <i-ep-Histogram v-show="v.name === 'AdminData'"/>
-              <i-ep-HelpFilled v-show="v.name === 'AdminWork'"/>
-              <i-ep-Promotion v-show="v.name === 'AdminMessage'"/>
-              <i-ep-Tools v-show="v.name === 'AdminSystem'"/>
-            </el-icon>
-            <span>{{ v.meta.title }}</span>
-          </template>
-          <el-menu-item
-              v-for="v2 in v.children"
-              :key="v2.path"
-              :index="'/admin/'+v.path+'/'+v2.path"
-          >
-            {{ v2.meta.title }}
-          </el-menu-item>
-        </el-sub-menu>
-      </el-menu>
-    </template>
+  <el-drawer v-model="isOpenSideMenu" class="openSideMenu" direction="ltr" size="70%" title="导航菜单">
+    <el-menu
+        :default-active="routerCurrent.fullPath"
+        router
+        unique-opened
+        @select="openSideMenuSelectClose"
+    >
+      <el-sub-menu v-for="v in routerAdmin" :key="v.path" :index="v.path">
+        <template #title>
+          <el-icon>
+            <i-ep-Odometer v-show="v.name === 'AdminPanel'"/>
+            <i-ep-Histogram v-show="v.name === 'AdminData'"/>
+            <i-ep-HelpFilled v-show="v.name === 'AdminWork'"/>
+            <i-ep-Promotion v-show="v.name === 'AdminMessage'"/>
+            <i-ep-Tools v-show="v.name === 'AdminSystem'"/>
+          </el-icon>
+          <span>{{ v.meta.title }}</span>
+        </template>
+        <el-menu-item
+            v-for="v2 in v.children"
+            :key="v2.path"
+            :index="'/admin/'+v.path+'/'+v2.path"
+        >
+          {{ v2.meta.title }}
+        </el-menu-item>
+      </el-sub-menu>
+    </el-menu>
+  </el-drawer>
+
+  <!--侧边设置窗口-->
+  <el-drawer v-model="isOpenSideSetting" v-model:size="openSideWidth" title="系统主题设置">
+    <p>主题颜色</p>
+    <el-select v-model="sideSetting.mode" placeholder="主题颜色" @change="sideSettingFun">
+      <el-option label="浅色模式" value="light"/>
+      <el-option label="深色模式" value="dark"/>
+      <el-option label="跟随系统" value="auto"/>
+    </el-select>
   </el-drawer>
 </template>
 
