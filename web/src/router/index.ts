@@ -140,20 +140,20 @@ const routes: RouteRecordRaw[] = [
                 },
                 children:[
                     {
-                        path: "log",
-                        name: "AdminMessageLog",
-                        meta: {
-                            title: "消息推送日志",
-                        },
-                        component: () => import("@/views/admin/message/log.vue")
-                    },
-                    {
                         path: "config",
                         name: "AdminMessageConfig",
                         meta: {
                             title: "消息推送配置",
                         },
                         component: () => import("@/views/admin/message/config.vue")
+                    },
+                    {
+                        path: "log",
+                        name: "AdminMessageLog",
+                        meta: {
+                            title: "消息推送日志",
+                        },
+                        component: () => import("@/views/admin/message/log.vue")
                     },
                 ],
             },
