@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 </script>
 
 <template>
   <div class="main">
-    <el-row justify="center" class="content">
+    <el-row class="content" justify="center">
       <el-col :span="24">
         <router-view></router-view>
       </el-col>
@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .main {
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
     max-width: 820px;
     padding: 32px;
     box-sizing: border-box;
-    background-color: #252525;
+    //background-color: #252525;
     overflow: hidden;
     border-radius: var(--var-border-radius);
 
@@ -37,4 +37,21 @@
     }
   }
 }
+
+// 浅色模式
+html.light {
+  .content {
+    background-color: #ffffff;
+    box-shadow: var(--el-box-shadow-light);
+  }
+}
+
+// 深色模式
+html.dark {
+  .content {
+    background-color: #252525;
+  }
+}
+
+
 </style>

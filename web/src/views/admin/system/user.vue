@@ -59,13 +59,13 @@ const accountActive = () => {
         </template>
       </el-table-column>
       <el-table-column label="创建时间" prop="time"></el-table-column>
-      <el-table-column label="操作" width="120">
-        <template #default="data">
-          <el-button-group>
-            <el-button>查看详情</el-button>
-          </el-button-group>
-        </template>
-      </el-table-column>
+      <!--      <el-table-column label="操作" width="120">-->
+      <!--        <template #default="data">-->
+      <!--          <el-button-group>-->
+      <!--            <el-button>查看详情</el-button>-->
+      <!--          </el-button-group>-->
+      <!--        </template>-->
+      <!--      </el-table-column>-->
     </el-table>
     <div class="pagination">
       <!--TODO 小屏幕只显示 prev, pager, next-->

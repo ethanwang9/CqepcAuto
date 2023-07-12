@@ -186,9 +186,6 @@ onUnmounted(() => {
       <el-main class="content">
         <router-view></router-view>
       </el-main>
-      <el-footer class="footer">
-        <p>Copyright © 2023 Ethan.Wang CqepcAuto自动化任务管理系统.</p>
-      </el-footer>
     </el-container>
   </el-container>
 
@@ -269,16 +266,6 @@ onUnmounted(() => {
 
 .aside {
   transition: width linear 150ms;
-}
-
-.footer {
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--el-bg-color);
-  font-size: 14px;
-  letter-spacing: 0.1em;
 }
 </style>
 

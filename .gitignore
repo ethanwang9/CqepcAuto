@@ -1,6 +1,10 @@
+# root
+.idea/
+.vscoe/
+
 # web
-/web/.idea
-/web/.vscode/*
+/web/.idea/
+/web/.vscode/
 /web/node_modules
 
 # server

@@ -61,7 +61,6 @@ onUnmounted(() => {
   </el-breadcrumb>
   <br>
   <el-card>
-    <!--TODO 小屏幕标签栏显示在上方-->
     <el-tabs v-model="active" :tab-position="sidePosition">
       <el-tab-pane label="个人信息" name="user">
         <el-form :model="data" label-width="80px">
