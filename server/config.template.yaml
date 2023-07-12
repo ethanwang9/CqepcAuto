@@ -1,0 +1,43 @@
+# jwt
+jwt:
+
+# 日志
+log:
+  # 日志目录
+  dir: log
+  # 显示行 true | false
+  show_line: true
+  # 输出编码格式 json->以json格式输出 | console->以控制台格式输出
+  format: console
+  # 栈名
+  stacktrace_key: stacktrace
+  # 编码级
+  # LowercaseLevelEncoder-小写编码器-默认
+  # LowercaseColorLevelEncoder-小写编码器带颜色
+  # CapitalLevelEncoder-大写编码器
+  # CapitalColorLevelEncoder-大写编码器带颜色
+  encode_level: LowercaseLevelEncoder
+  # 日志是否输出到控制台 true | false
+  log_in_console: false
+  # 日志前缀
+  prefix: "[ CqepcAutoServer ] "
+  # 日志级别 debug | info | warn | error | dpanic | panic | fatal
+  level: info
+  # 在进行切割之前，日志文件的最大大小（以MB为单位）
+  max_size: 10
+  # 保留旧文件的最大个数 | 0就是全部保留
+  max_backups: 0
+  # 保留旧文件的最大天数
+  max_age: 180
+
+# 服务器相关配置
+server:
+  # 模式 develop 开发环境 | release 生产环境
+  mode: develop
+  # 服务运行端口
+  port: 8888
+
+# 安全配置
+safe:
+#  签名密钥
+  sign: 1D39E90AF1C5401AB27FF3DB44A5D094

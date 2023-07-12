@@ -8,3 +8,8 @@
 /web/node_modules
 
 # server
+/server/.idea/
+/server/log/
+/server/ca.db
+/server/config.yaml
+

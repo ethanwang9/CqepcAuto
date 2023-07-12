@@ -28,7 +28,6 @@
     max-width: 820px;
     padding: 32px;
     box-sizing: border-box;
-    //background-color: #252525;
     overflow: hidden;
     border-radius: var(--var-border-radius);
 
