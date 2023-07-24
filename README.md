@@ -1,8 +1,8 @@
 # CqepcAuto 文档
 
-> 最新版本号: v1.0.5
+> 最新版本号: v1.0.6
 >
-> 更新日期: 2023-06-06 19:54:58
+> 更新日期: 2023-07-24 15:09:36
 
 本软件是重航自动评课系统，解决学生忘记评课、评课困难等问题开发的一个脚本系统管理软件
 
@@ -16,7 +16,7 @@ https://github.com/ethanwang9/CqepcAuto
 
 ```shell
 # 编译
-docker build -f Dockerfile -t ethan/cqepc_auto:1.0.5 .
+docker build -f Dockerfile -t ethan/cqepc_auto:1.0.6 .
 ```
 
 # docker 运行
@@ -29,21 +29,10 @@ sudo docker run -d \
 -v ~/docker/CqepcAuto/log:/app/log \
 -v ~/docker/CqepcAuto/db:/app/db \
 --restart=always \
-ethan/cqepc_auto:1.0.5
+ethan/cqepc_auto:1.0.6
 ```
 
-# 下载地址
 
-| 系统    | CPU指令架构 | 下载地址                                                  |
-| ------- | ----------- | --------------------------------------------------------- |
-| windows | x86         | 下载:https://wwz.lanzoum.com/idHlD09tzs3a <br />密码:68bi |
-| windows | x64         | 下载:https://wwz.lanzoum.com/ibagP09tzrvc <br />密码:5pet |
-| mac     | x64         | 下载:https://wwz.lanzoum.com/i3DJx09tzrof <br />密码:gf1m |
-| mac     | arm64       | 下载:https://wwz.lanzoum.com/iMcea09tzrab <br />密码:ci4x |
-| linux   | x86         | 下载:https://wwz.lanzoum.com/iYfpE09tzqlg <br />密码:d29b |
-| linux   | x64         | 下载:https://wwz.lanzoum.com/iDJgN09tzqch <br />密码:7dpx |
-| linux   | arm         | 下载:https://wwz.lanzoum.com/io7VK09tzped <br />密码:16sc |
-| linux   | arm64       | 下载:https://wwz.lanzoum.com/il1dT09tzpwb <br />密码:auhw |
 
 # 安装系统
 
@@ -98,6 +87,10 @@ ethan/cqepc_auto:1.0.5
 - 请更换终端运行即可，推荐：Windows 终端，该问题仅在 Windows 出现
 
 # 更新日志
+
+Version 1.0.6
+
+- 修复依赖中的漏洞
 
 Version 1.0.5
 
