@@ -46,6 +46,6 @@ const (
 // 安全
 
 const (
-	SafeKey = `7o5cbh0TwOt4gB2y`
+	SafeKey = `K6TIDdCPyf3kiYne`
 	WebKey  = `f9689642a013449eb2cf28bb928dbc87`
 )
