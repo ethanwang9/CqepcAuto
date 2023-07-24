@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"CqepcAuto/api"
+	"CqepcAuto/api/dingtalk"
+	"CqepcAuto/core"
+	"CqepcAuto/global"
+	"CqepcAuto/model"
+	"CqepcAuto/utils"
 	"errors"
-	"github.com/axelwong/CqepcAuto/api"
-	"github.com/axelwong/CqepcAuto/api/dingtalk"
-	"github.com/axelwong/CqepcAuto/core"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

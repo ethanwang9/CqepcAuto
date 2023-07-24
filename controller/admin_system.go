@@ -1,13 +1,13 @@
 package controller
 
 import (
+	"CqepcAuto/api"
+	"CqepcAuto/api/cqepc"
+	"CqepcAuto/api/dingtalk"
+	"CqepcAuto/global"
+	"CqepcAuto/model"
+	"CqepcAuto/utils"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/api"
-	"github.com/axelwong/CqepcAuto/api/cqepc"
-	"github.com/axelwong/CqepcAuto/api/dingtalk"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"

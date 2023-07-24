@@ -1,9 +1,9 @@
 package middleware
 
 import (
+	"CqepcAuto/global"
 	"bytes"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"io/ioutil"
@@ -54,6 +54,7 @@ func GinLogger() gin.HandlerFunc {
 			zap.String("path", path),
 			zap.String("query", query),
 			zap.Any("header", c.Request.Header),
+			zap.String("user-agent", c.Request.UserAgent()),
 			zap.ByteString("body", body),
 			zap.String("ip", c.ClientIP()),
 			zap.String("error", c.Errors.ByType(gin.ErrorTypePrivate).String()),

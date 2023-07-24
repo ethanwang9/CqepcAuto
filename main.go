@@ -1,10 +1,10 @@
 package main
 
 import (
+	"CqepcAuto/core"
+	"CqepcAuto/global"
+	"CqepcAuto/router"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/core"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/router"
 	"go.uber.org/zap"
 	"time"
 )

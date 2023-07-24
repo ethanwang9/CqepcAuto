@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/middleware"
+	"CqepcAuto/global"
+	"CqepcAuto/middleware"
 	"github.com/gin-gonic/gin"
 )
 

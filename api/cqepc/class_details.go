@@ -1,12 +1,12 @@
 package cqepc
 
 import (
+	"CqepcAuto/global"
+	"CqepcAuto/utils"
 	"encoding/json"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/go-resty/resty/v2"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"go.uber.org/zap"
 	"time"
 )
@@ -51,7 +51,7 @@ func (c *ClassDetails) Get() (global.ResClassAllDetails, error) {
 	dataJsonString, _ := json.Marshal(data)
 	dataTime := time.Now().UnixMicro()
 	dataIV := []byte(fmt.Sprintf("%v", dataTime))
-	dataAesByte, _ := goEncrypt.AesCbcEncrypt(dataJsonString, []byte(global.SafeKey), dataIV)
+	dataAesByte, _ := aes.AesCbcEncrypt(dataJsonString, []byte(global.SafeKey), dataIV)
 	global.APP_LOG.Debug(
 		"请求 cqepc#获取课程详情 返回数据",
 		zap.Any("data", utils.AlgorithmApp.Base64Encode(dataAesByte)),

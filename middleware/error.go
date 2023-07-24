@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
+	"CqepcAuto/global"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net"

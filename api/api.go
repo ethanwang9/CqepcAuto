@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/axelwong/CqepcAuto/api/cqepc"
-	"github.com/axelwong/CqepcAuto/api/dingtalk"
+	"CqepcAuto/api/cqepc"
+	"CqepcAuto/api/dingtalk"
 )
 
 // name: 接口集合

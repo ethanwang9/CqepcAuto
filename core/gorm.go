@@ -1,8 +1,8 @@
 package core
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/utils"
+	"CqepcAuto/global"
+	"CqepcAuto/utils"
 	"github.com/glebarez/sqlite"
 	"go.uber.org/zap"
 	"gorm.io/gorm"

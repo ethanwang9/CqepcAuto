@@ -1,8 +1,8 @@
 package controller
 
 import (
+	"CqepcAuto/model"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"

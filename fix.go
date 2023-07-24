@@ -1,12 +1,12 @@
 package main
 
 import (
+	"CqepcAuto/api"
+	"CqepcAuto/api/cqepc"
+	"CqepcAuto/core"
+	"CqepcAuto/global"
+	"CqepcAuto/model"
 	"encoding/json"
-	"github.com/axelwong/CqepcAuto/api"
-	"github.com/axelwong/CqepcAuto/api/cqepc"
-	"github.com/axelwong/CqepcAuto/core"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
 	"log"
 )
 

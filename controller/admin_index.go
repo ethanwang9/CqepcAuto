@@ -1,11 +1,11 @@
 package controller
 
 import (
+	"CqepcAuto/global"
+	"CqepcAuto/model"
+	"CqepcAuto/utils"
 	"encoding/json"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"time"

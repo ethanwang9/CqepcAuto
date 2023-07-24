@@ -1,9 +1,9 @@
 package core
 
 import (
+	"CqepcAuto/global"
+	"CqepcAuto/utils"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"

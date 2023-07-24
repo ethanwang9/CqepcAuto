@@ -1,15 +1,15 @@
 package controller
 
 import (
+	"CqepcAuto/api"
+	"CqepcAuto/api/dingtalk"
+	"CqepcAuto/global"
+	"CqepcAuto/model"
+	"CqepcAuto/utils"
 	"encoding/hex"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/api"
-	"github.com/axelwong/CqepcAuto/api/dingtalk"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"net/http"
 	"regexp"
 	"strings"
@@ -130,7 +130,7 @@ func ApiCode(ctx *gin.Context) {
 
 	// 设置cookie
 	t := time.Now().UnixMicro()
-	codeE, _ := goEncrypt.AesCbcEncrypt([]byte(code), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", t)))
+	codeE, _ := aes.AesCbcEncrypt([]byte(code), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", t)))
 	ctx.SetCookie("code", hex.EncodeToString(codeE), 300, "/install", "", false, true)
 	ctx.SetCookie("iv", fmt.Sprintf("%v", t+1), 300, "/install", "", false, true)
 
@@ -256,7 +256,7 @@ func ApiSysUpdate(ctx *gin.Context) {
 
 	// 设置cookie
 	t := time.Now().UnixMicro()
-	codeE, _ := goEncrypt.AesCbcEncrypt([]byte(code), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", t)))
+	codeE, _ := aes.AesCbcEncrypt([]byte(code), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", t)))
 	ctx.SetCookie("code", hex.EncodeToString(codeE), 300, "/admin/system", "", false, true)
 	ctx.SetCookie("iv", fmt.Sprintf("%v", t+1), 300, "/admin/system", "", false, true)
 

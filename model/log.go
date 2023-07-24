@@ -1,12 +1,12 @@
 package model
 
 import (
+	"CqepcAuto/global"
+	"CqepcAuto/utils"
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/utils"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"go.uber.org/zap"
 	"strconv"
 	"time"
@@ -79,10 +79,10 @@ func (l *Log) IsSendDingTalk() (bool, error) {
 func logEncode(log *Log) {
 	iv := time.Now().UnixMicro()
 
-	msg, _ := goEncrypt.AesCbcEncrypt([]byte(log.Msg), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	msg, _ := aes.AesCbcEncrypt([]byte(log.Msg), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	log.Msg = hex.EncodeToString(msg)
 
-	data, _ := goEncrypt.AesCbcEncrypt([]byte(log.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	data, _ := aes.AesCbcEncrypt([]byte(log.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	log.Data = hex.EncodeToString(data)
 
 	log.CqepcAutoFlag = fmt.Sprintf("%v", iv+1)
@@ -96,11 +96,11 @@ func logDecode(log []Log) []Log {
 		iv--
 
 		msg, _ := hex.DecodeString(v.Msg)
-		msg, _ = goEncrypt.AesCbcDecrypt([]byte(msg), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		msg, _ = aes.AesCbcDecrypt([]byte(msg), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.Msg = string(msg)
 
 		data, _ := hex.DecodeString(v.Data)
-		data, _ = goEncrypt.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		data, _ = aes.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.Data = string(data)
 
 		v.CqepcAutoFlag = fmt.Sprintf("%v", iv)

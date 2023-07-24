@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/axelwong/CqepcAuto/controller"
+	"CqepcAuto/controller"
 	"github.com/gin-gonic/gin"
 )
 

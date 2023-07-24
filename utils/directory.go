@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
+	"CqepcAuto/global"
 	"go.uber.org/zap"
 	"os"
 )

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
+	"CqepcAuto/global"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 	"os"
@@ -12,6 +12,7 @@ import (
 // desc:
 
 func GetWriteSyncer(file string) zapcore.WriteSyncer {
+
 	lumberJackLogger := &lumberjack.Logger{
 		Filename:   file, // 日志文件的位置
 		MaxSize:    10,   // 在进行切割之前，日志文件的最大大小（以MB为单位）

@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"CqepcAuto/global"
+	"crypto/sha256"
 	"encoding/base64"
-	"github.com/axelwong/CqepcAuto/global"
+	"encoding/hex"
 	"go.uber.org/zap"
 )
 
@@ -31,4 +33,17 @@ func (a *Algorithm) Base64Decode(dst string) (src []byte, err error) {
 		return nil, err
 	}
 	return src, nil
+}
+
+// GetStringHash256 hash256
+func (a *Algorithm) GetStringHash256(text string) string {
+	//1.new一个指定的hash函数
+	stringHash := sha256.New() //返回hash.Hash
+	//2.向hash中添加数据
+	stringHash.Write([]byte(text))
+	//3. 计算hash结果
+	temp := stringHash.Sum(nil)
+	//4. 固定长度的字符串
+	hash := hex.EncodeToString(temp)
+	return hash //返回哈希
 }

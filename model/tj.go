@@ -1,10 +1,10 @@
 package model
 
 import (
+	"CqepcAuto/global"
 	"encoding/hex"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"go.uber.org/zap"
 	"strconv"
 	"time"
@@ -60,7 +60,7 @@ func (t *Tj) GetByUid() (Tj, error) {
 func tjEncode(tj *Tj) {
 	iv := time.Now().UnixMicro()
 
-	data, _ := goEncrypt.AesCbcEncrypt([]byte(tj.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	data, _ := aes.AesCbcEncrypt([]byte(tj.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	tj.Data = hex.EncodeToString(data)
 
 	tj.CqepcAutoFlag = fmt.Sprintf("%v", iv+1)
@@ -74,7 +74,7 @@ func tjDecode(tj []Tj) []Tj {
 		iv--
 
 		data, _ := hex.DecodeString(v.Data)
-		data, _ = goEncrypt.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		data, _ = aes.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.Data = string(data)
 
 		v.CqepcAutoFlag = fmt.Sprintf("%v", iv)

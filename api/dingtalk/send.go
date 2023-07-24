@@ -1,7 +1,7 @@
 package dingtalk
 
 import (
-	"github.com/axelwong/CqepcAuto/global"
+	"CqepcAuto/global"
 	"github.com/blinkbean/dingtalk"
 	"go.uber.org/zap"
 )

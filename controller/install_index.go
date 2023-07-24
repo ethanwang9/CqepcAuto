@@ -1,16 +1,16 @@
 package controller
 
 import (
+	"CqepcAuto/api"
+	"CqepcAuto/api/cqepc"
+	"CqepcAuto/global"
+	"CqepcAuto/model"
+	"CqepcAuto/utils"
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/api"
-	"github.com/axelwong/CqepcAuto/api/cqepc"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/model"
-	"github.com/axelwong/CqepcAuto/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -217,7 +217,7 @@ func installIndexValidate(ctx *gin.Context, studentID, studentPassword, studentO
 
 	code, _ := hex.DecodeString(verifyCode)
 	iv2, _ := strconv.ParseInt(iv, 10, 64)
-	codeCore, err := goEncrypt.AesCbcDecrypt(code, []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv2-1)))
+	codeCore, err := aes.AesCbcDecrypt(code, []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv2-1)))
 	if err != nil {
 		return errors.New("浏览器不安全，验证码解析失败！ Error: " + err.Error())
 	}

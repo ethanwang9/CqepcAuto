@@ -1,11 +1,11 @@
 package model
 
 import (
+	"CqepcAuto/global"
+	"CqepcAuto/utils"
 	"encoding/hex"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/axelwong/CqepcAuto/utils"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"go.uber.org/zap"
 	"strconv"
 	"time"
@@ -98,13 +98,13 @@ func (t *Today) UpdateByUidAndPid() error {
 func todayEncode(t *Today) {
 	iv := time.Now().UnixMicro()
 
-	data, _ := goEncrypt.AesCbcEncrypt([]byte(t.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	data, _ := aes.AesCbcEncrypt([]byte(t.Data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	t.Data = hex.EncodeToString(data)
 
-	pkData, _ := goEncrypt.AesCbcEncrypt([]byte(t.PkData), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	pkData, _ := aes.AesCbcEncrypt([]byte(t.PkData), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	t.PkData = hex.EncodeToString(pkData)
 
-	isPk, _ := goEncrypt.AesCbcEncrypt([]byte(t.IsPk), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	isPk, _ := aes.AesCbcEncrypt([]byte(t.IsPk), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	t.IsPk = hex.EncodeToString(isPk)
 
 	t.CqepcAutoFlag = fmt.Sprintf("%v", iv+1)
@@ -118,15 +118,15 @@ func todayDecode(t []Today) []Today {
 		iv--
 
 		data, _ := hex.DecodeString(v.Data)
-		data, _ = goEncrypt.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		data, _ = aes.AesCbcDecrypt([]byte(data), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.Data = string(data)
 
 		pkData, _ := hex.DecodeString(v.PkData)
-		pkData, _ = goEncrypt.AesCbcDecrypt([]byte(pkData), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		pkData, _ = aes.AesCbcDecrypt([]byte(pkData), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.PkData = string(pkData)
 
 		isPk, _ := hex.DecodeString(v.IsPk)
-		isPk, _ = goEncrypt.AesCbcDecrypt([]byte(isPk), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+		isPk, _ = aes.AesCbcDecrypt([]byte(isPk), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 		v.IsPk = string(isPk)
 
 		v.CqepcAutoFlag = fmt.Sprintf("%v", iv)

@@ -1,11 +1,11 @@
 package utils
 
 import (
+	"CqepcAuto/global"
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/hash"
 	"sort"
 	"strconv"
 	"time"
@@ -70,7 +70,7 @@ func (s *Safe) SignCreate(data map[string]interface{}) string {
 		}
 	}
 
-	sign := goEncrypt.Sha256([]byte(fmt.Sprintf("%v%v", signString, global.WebKey)))
+	sign := hash.Sha256([]byte(fmt.Sprintf("%v%v", signString, global.WebKey)))
 
 	// 加密
 	return hex.EncodeToString(sign)

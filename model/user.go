@@ -1,10 +1,10 @@
 package model
 
 import (
+	"CqepcAuto/global"
 	"encoding/hex"
 	"fmt"
-	"github.com/axelwong/CqepcAuto/global"
-	"github.com/wumansgy/goEncrypt"
+	"github.com/wumansgy/goEncrypt/aes"
 	"go.uber.org/zap"
 	"strconv"
 	"time"
@@ -92,40 +92,40 @@ func (u *User) GetByUidOldest() (User, error) {
 func userEncode(user *User) {
 	iv := time.Now().UnixMicro()
 
-	sid, _ := goEncrypt.AesCbcEncrypt([]byte(user.SId), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sid, _ := aes.AesCbcEncrypt([]byte(user.SId), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SId = hex.EncodeToString(sid)
 
-	sPass, _ := goEncrypt.AesCbcEncrypt([]byte(user.SPass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sPass, _ := aes.AesCbcEncrypt([]byte(user.SPass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SPass = hex.EncodeToString(sPass)
 
-	sOpenid, _ := goEncrypt.AesCbcEncrypt([]byte(user.SOpenid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sOpenid, _ := aes.AesCbcEncrypt([]byte(user.SOpenid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SOpenid = hex.EncodeToString(sOpenid)
 
-	sName, _ := goEncrypt.AesCbcEncrypt([]byte(user.SName), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sName, _ := aes.AesCbcEncrypt([]byte(user.SName), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SName = hex.EncodeToString(sName)
 
-	sClass, _ := goEncrypt.AesCbcEncrypt([]byte(user.SClass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sClass, _ := aes.AesCbcEncrypt([]byte(user.SClass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SClass = hex.EncodeToString(sClass)
 
-	sClassCode, _ := goEncrypt.AesCbcEncrypt([]byte(user.SClassCode), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sClassCode, _ := aes.AesCbcEncrypt([]byte(user.SClassCode), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SClassCode = hex.EncodeToString(sClassCode)
 
-	pkToken, _ := goEncrypt.AesCbcEncrypt([]byte(user.PkToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	pkToken, _ := aes.AesCbcEncrypt([]byte(user.PkToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.PkToken = hex.EncodeToString(pkToken)
 
-	loginType, _ := goEncrypt.AesCbcEncrypt([]byte(user.LoginType), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	loginType, _ := aes.AesCbcEncrypt([]byte(user.LoginType), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.LoginType = hex.EncodeToString(loginType)
 
-	nToken, _ := goEncrypt.AesCbcEncrypt([]byte(user.NToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nToken, _ := aes.AesCbcEncrypt([]byte(user.NToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NToken = hex.EncodeToString(nToken)
 
-	nSecret, _ := goEncrypt.AesCbcEncrypt([]byte(user.NSecret), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nSecret, _ := aes.AesCbcEncrypt([]byte(user.NSecret), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NSecret = hex.EncodeToString(nSecret)
 
-	nPhone, _ := goEncrypt.AesCbcEncrypt([]byte(user.NPhone), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nPhone, _ := aes.AesCbcEncrypt([]byte(user.NPhone), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NPhone = hex.EncodeToString(nPhone)
 
-	isStop, _ := goEncrypt.AesCbcEncrypt([]byte(user.IsStop), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	isStop, _ := aes.AesCbcEncrypt([]byte(user.IsStop), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.IsStop = hex.EncodeToString(isStop)
 
 	user.CqepcAutoFlag = fmt.Sprintf("%v", iv+1)
@@ -137,51 +137,51 @@ func userDecode(user *User) {
 	iv--
 
 	sid, _ := hex.DecodeString(user.SId)
-	sid, _ = goEncrypt.AesCbcDecrypt([]byte(sid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sid, _ = aes.AesCbcDecrypt([]byte(sid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SId = string(sid)
 
 	sPass, _ := hex.DecodeString(user.SPass)
-	sPass, _ = goEncrypt.AesCbcDecrypt([]byte(sPass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sPass, _ = aes.AesCbcDecrypt([]byte(sPass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SPass = string(sPass)
 
 	sOpenid, _ := hex.DecodeString(user.SOpenid)
-	sOpenid, _ = goEncrypt.AesCbcDecrypt([]byte(sOpenid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sOpenid, _ = aes.AesCbcDecrypt([]byte(sOpenid), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SOpenid = string(sOpenid)
 
 	sName, _ := hex.DecodeString(user.SName)
-	sName, _ = goEncrypt.AesCbcDecrypt([]byte(sName), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sName, _ = aes.AesCbcDecrypt([]byte(sName), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SName = string(sName)
 
 	sClass, _ := hex.DecodeString(user.SClass)
-	sClass, _ = goEncrypt.AesCbcDecrypt([]byte(sClass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sClass, _ = aes.AesCbcDecrypt([]byte(sClass), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SClass = string(sClass)
 
 	sClassCode, _ := hex.DecodeString(user.SClassCode)
-	sClassCode, _ = goEncrypt.AesCbcDecrypt([]byte(sClassCode), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	sClassCode, _ = aes.AesCbcDecrypt([]byte(sClassCode), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.SClassCode = string(sClassCode)
 
 	pkToken, _ := hex.DecodeString(user.PkToken)
-	pkToken, _ = goEncrypt.AesCbcDecrypt([]byte(pkToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	pkToken, _ = aes.AesCbcDecrypt([]byte(pkToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.PkToken = string(pkToken)
 
 	loginType, _ := hex.DecodeString(user.LoginType)
-	loginType, _ = goEncrypt.AesCbcDecrypt([]byte(loginType), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	loginType, _ = aes.AesCbcDecrypt([]byte(loginType), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.LoginType = string(loginType)
 
 	nToken, _ := hex.DecodeString(user.NToken)
-	nToken, _ = goEncrypt.AesCbcDecrypt([]byte(nToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nToken, _ = aes.AesCbcDecrypt([]byte(nToken), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NToken = string(nToken)
 
 	nSecret, _ := hex.DecodeString(user.NSecret)
-	nSecret, _ = goEncrypt.AesCbcDecrypt([]byte(nSecret), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nSecret, _ = aes.AesCbcDecrypt([]byte(nSecret), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NSecret = string(nSecret)
 
 	nPhone, _ := hex.DecodeString(user.NPhone)
-	nPhone, _ = goEncrypt.AesCbcDecrypt([]byte(nPhone), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	nPhone, _ = aes.AesCbcDecrypt([]byte(nPhone), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.NPhone = string(nPhone)
 
 	isStop, _ := hex.DecodeString(user.IsStop)
-	isStop, _ = goEncrypt.AesCbcDecrypt([]byte(isStop), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
+	isStop, _ = aes.AesCbcDecrypt([]byte(isStop), []byte(global.SafeKey), []byte(fmt.Sprintf("%v", iv)))
 	user.IsStop = string(isStop)
 
 	user.CqepcAutoFlag = fmt.Sprintf("%v", iv)
