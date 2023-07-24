@@ -17,7 +17,7 @@
 
     <!-- js -->
     <script src="../../static/lib/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../../static/lib/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../static/lib/node_modules/popper.js/dist/umd/popper.js"></script>
     <script src="../../static/lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../static/lib/node_modules/toastr/build/toastr.min.js"></script>
     <script src="../../static/lib/node_modules/crypto-js/crypto-js.js"></script>
@@ -192,16 +192,12 @@
                                         <td>{{.app.now}}</td>
                                     </tr>
                                     <tr>
-                                        <td>最新版本号</td>
-                                        <td>{{.app.new}}</td>
-                                    </tr>
-                                    <tr>
                                         <td>作者</td>
                                         <td>{{.app.author}}</td>
                                     </tr>
                                     <tr>
-                                        <td>查看文档</td>
-                                        <td><a href="{{.app.release_url}}">文档地址</a></td>
+                                        <td>项目地址</td>
+                                        <td><a href="{{.app.release_url}}">Github</a></td>
                                     </tr>
                                 </tbody>
                             </table>

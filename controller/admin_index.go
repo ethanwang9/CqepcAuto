@@ -95,9 +95,8 @@ func AdminIndex(ctx *gin.Context) {
 		"userinfo": userInfo,
 		"app": gin.H{
 			"now":         "Version " + global.Version,
-			"new":         "作者已停止更新，博客反馈BUG更新应用",
 			"author":      global.Author,
-			"release_url": "https://www.ethan9.cn",
+			"release_url": global.AppUrl,
 		},
 		"today": today,
 		"tj":    tj,

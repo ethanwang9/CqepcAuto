@@ -7,11 +7,11 @@ package global
 
 const (
 	// Version 版本号
-	Version = "1.0.5"
+	Version = "1.0.6"
 	// Author 作者
-	Author = "Ethan"
-	// APPS 版本密钥
-	APPS = "6F34BCADB9D84DD5BD7C2A3415B0290D"
+	Author = "Ethan.Wang"
+	// AppUrl 项目地址
+	AppUrl = "https://github.com/ethanwang9/CqepcAuto"
 )
 
 // 应用配置
@@ -20,7 +20,7 @@ const (
 	// Mode 模式
 	Mode = "release"
 	// Port 端口号
-	Port = "10000"
+	Port = "34567"
 )
 
 // 日志

@@ -30,7 +30,11 @@ func main() {
 	consoleLog()
 
 	// 运行
-	_ = r.Run(fmt.Sprintf(":%v", global.Port))
+	err := r.Run(fmt.Sprintf(":%v", global.Port))
+	if err != nil {
+		global.APP_LOG.Panic(err.Error())
+		return
+	}
 }
 
 func consoleLog() {
