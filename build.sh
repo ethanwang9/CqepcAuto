@@ -22,7 +22,7 @@ cp -r static release/mac_arm64/static
 zip -r "release/mac_arm64.zip" release/mac_arm64/*
 echo "mac arm64 编译完成"
 
-# ==========
+# ==========:wq
 # Windows
 # ==========
 

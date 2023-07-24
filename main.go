@@ -30,7 +30,7 @@ func main() {
 	consoleLog()
 
 	// 运行
-	r.Run(fmt.Sprintf(":%v", global.Port))
+	_ = r.Run(fmt.Sprintf(":%v", global.Port))
 }
 
 func consoleLog() {

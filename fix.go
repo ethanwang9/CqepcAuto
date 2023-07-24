@@ -74,7 +74,7 @@ func fix() {
 		log.Println("修复评课统计数据成功")
 	} else {
 		var tempPK []global.PkTj
-		json.Unmarshal([]byte(pk.Data), &tempPK)
+		_ = json.Unmarshal([]byte(pk.Data), &tempPK)
 		if len(tempPK) == 0 {
 			core.CronDoNew().UpdatePkData()
 			log.Println("修复评课统计数据成功")

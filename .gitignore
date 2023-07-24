@@ -1,6 +1,9 @@
+#文件
+main_test.go
+db/db.db
+
+# 目录
 .idea/
 log/
 release/
-db/db.db
 doc/
-main_test.go

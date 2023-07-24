@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	uuid "github.com/satori/go.uuid"
+	"github.com/google/uuid"
 	"math/rand"
 	"strings"
 	"time"
@@ -15,34 +15,34 @@ var ToolApp = new(Tool)
 // RandString 随机字符串
 // mode 1-小写, 2-大写, 其他-不大小写转义
 func (t *Tool) RandString(length, mode int) string {
-	rand.Seed(time.Now().UnixNano())
-	randCore := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-	randStr := ""
+	aZList := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	s := strings.Builder{}
+	s.Grow(length)
 	for i := 0; i < length; i++ {
-		randStr += string(randCore[rand.Intn(len(randCore))])
+		s.WriteByte(aZList[rand.Intn(len(aZList))])
 	}
+
 	switch mode {
 	case 1:
 		// 小写
-		randStr = strings.ToLower(randStr)
+		return strings.ToLower(s.String())
 	case 2:
 		// 大写
-		randStr = strings.ToUpper(randStr)
+		return strings.ToUpper(s.String())
 	default:
-		break
+		return s.String()
 	}
-	return randStr
 }
 
 // RandWxOpenid 生成随机微信openid
 func (t *Tool) RandWxOpenid() (s string) {
-	rand.Seed(time.Now().UnixNano())
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	// 初始化字符串
 	s = "oI2Hl5"
 	// 是否间隔
-	if ge := rand.Intn(10); ge%2 == 1 {
+	if ge := r.Intn(10); ge%2 == 1 {
 		// 输出间隔
-		b := t.RandString(rand.Intn(15)+6, 0)
+		b := t.RandString(r.Intn(15)+6, 0)
 		s += b + "-" + t.RandString(21-len(b), 0)
 	} else {
 		// 无间隔
@@ -77,9 +77,10 @@ func (t *Tool) DateToUnix(d string) int64 {
 
 // UUID 生成UUID
 func (t *Tool) UUID() (u string) {
-	u = uuid.NewV4().String()
-	u = strings.Replace(u, "-", "", -1)
-	return u
+	s := uuid.New().String()
+	s = strings.Replace(s, "-", "", -1)
+	s = strings.ToUpper(s)
+	return s
 }
 
 // TodayZeroUnix 当天 00:00:00 时间戳
